@@ -3,7 +3,7 @@ lizard-atlas
 
 A basic browsable atlas.
 
-Put title and layer configuration in static/data/config.json
+All configuration goes in `config.json` such as the title, logo, layers etc.
 
 
 Development
@@ -29,10 +29,3 @@ $ NODE_ENV=production webpack -p --config webpack.production.config.js
 ```
 
 
-
-TODO
-====
-
- - Add legend functionality
- 
- - Configurable logo
