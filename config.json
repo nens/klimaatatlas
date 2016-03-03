@@ -241,6 +241,35 @@
             ],
             "roles": "Hoogte",
             "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt harum veritatis asperiores saepe itaque quod. Beatae numquam accusantium, repellat minima voluptate. Laboriosam porro, quod eos architecto quibusdam aliquid assumenda quasi."
+        },
+        {
+            "id": 7,
+            "name": "Waterlabel",
+            "lizardUrl": "http://waterlabel.sandbox.lizard.net/",
+            "coverImage": "http://waterlabeltiles.sandbox.lizard.net/bag/16/33654/21533.png",
+            "zoomLevel": 13,
+            "lat": 52.5028,
+            "lng": 4.9619,
+            "activeBaselayer": "dark",
+            "mapLayers": [
+                {
+                    "type": "tms",
+                    "name": "Waterlabel",
+                    "url": "http://waterlabeltiles.sandbox.lizard.net/bag/{z}/{x}/{y}.png",
+                    "layerName": "",
+                    "styles": "",
+                    "height": 256,
+                    "width": 256,
+                    "zindex": 32,
+                    "srs": "EPSG:3857",
+                    "format": "image/png",
+                    "transparent": false,
+                    "attribution": "Lizard © 2016",
+                    "active": true
+                }
+            ],
+            "roles": "Water",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt harum veritatis asperiores saepe itaque quod. Beatae numquam accusantium, repellat minima voluptate. Laboriosam porro, quod eos architecto quibusdam aliquid assumenda quasi."
         }
     ]
 }

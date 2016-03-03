@@ -275,7 +275,7 @@ class Map extends Component {
       center: [this.props.lat, this.props.lng], // Focus on Amsterdam Centrum
       zoom: this.props.zoomLevel, 
       layers: [_activeBaseLayer],
-      minZoom: 1,
+      minZoom: 13,
       maxZoom: 20,
       zoomControl: true,
     });

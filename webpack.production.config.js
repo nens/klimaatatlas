@@ -36,7 +36,9 @@ var config = {
         test: /\.js$/,
         loader: 'transform/cacheable?brfs'
       },
-      { test: /\.(png|jpg|svg|woff|eot|ttf|otf)$/, loader: 'url-loader?limit=100000'}
+      { test: /\.(png|jpg|svg|woff|eot|ttf|otf)$/, 
+        loader: 'url-loader?limit=100000'
+      }
     ]
   }
 };

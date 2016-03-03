@@ -15,18 +15,7 @@ module.exports = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    // new webpack.DefinePlugin({
-    //   'process.env': {
-    //     'NODE_ENV': JSON.stringify('production')
-    //   }
-    // }),
-    // new webpack.optimize.UglifyJsPlugin({
-    //   minimize: true,
-    //   compressor: {
-    //     warnings: false
-    //   }
-    // })        
+    new webpack.NoErrorsPlugin(),    
   ],
   module: {
     loaders: [
@@ -52,7 +41,9 @@ module.exports = {
         test: /\.js$/,
         loader: 'transform/cacheable?brfs'
       },
-      { test: /\.(png|jpg|svg|woff|eot|ttf|otf)$/, loader: 'url-loader?limit=100000'}
+      { test: /\.(png|jpg|svg|woff|eot|ttf|otf)$/, 
+        loader: 'url-loader?limit=100000'
+      }
     ]
   },
   resolve: {
