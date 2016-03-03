@@ -1,5 +1,6 @@
 {
     "title": "Purmerend | Klimaatatlas",
+    "logo": "http://i.imgur.com/0Dg7wGL.png",
     "information": "In het kader van de Klimaatbestendige Stad is deze Klimaatatlas van Purmerend tot stand gekomen. <br/><br/>De Klimaatatlas kan een stimulans zijn om meer rekening te houden met de gevolgen van klimaatverandering in de stad, zoals extreme neerslag, droogte en hittestress.De gemeente Purmerend beschikt over een gedetailleerd hydraulisch rekenmodel (<a href='http://www.3di.nu/' target='_blank'>3Di</a>) dat zowel het rioolstelsel als het maaiveld van Purmerend bevat.<br/><br/> Hiermee is bij wijze van een “quick scan” wateroverlast als gevolg van een hevige klimaatbui berekend. De resultaten hiervan zijn gebruikt als basis voor de kaarten in deze atlas. De kaarten bieden inzicht in de mogelijke gevolgen van klimaatverandering.<br/><br/>Daarnaast toont het de gebiedskenmerken van de gemeente. De kaarten bieden ondersteuning bij het formuleren van het water- en omgevingsbeleid van de gemeente, maar ook bij gesprek tussen de gemeente en haar bewoners.",
     "maps": [
         {
@@ -25,7 +26,32 @@
                     "format": "image/png",
                     "transparent": false,
                     "attribution": "Lizard © 2016",
-                    "active": false
+                    "active": false,
+                    "legend": {
+                        "type": "categorical",
+                        "steps": [
+                            {
+                                "label": "Gras",
+                                "color": "#CEFF98"
+                            },
+                            {
+                                "label": "Bebouwing",
+                                "color": "#BC4341"
+                            },
+                            {
+                                "label": "Weiland",
+                                "color": "#CF98F0"
+                            },
+                            {
+                                "label": "Industrie",
+                                "color": "#777BE9"
+                            },
+                            {
+                                "label": "Bos",
+                                "color": "#4D8B0F"
+                            }
+                        ]
+                    }
                 },    
                 {
                     "type": "wms",
@@ -40,11 +66,36 @@
                     "format": "image/png",
                     "transparent": true,
                     "attribution": "Lizard © 2016",
-                    "active": true
+                    "active": true,
+                    "legend": {
+                        "type": "categorical",
+                        "steps": [
+                            {
+                                "label": "Water",
+                                "color": "#0000FF"
+                            },
+                            {
+                                "label": "Laag",
+                                "color": "#ff0000"
+                            },
+                            {
+                                "label": "Middel",
+                                "color": "orange"
+                            },
+                            {
+                                "label": "Hoog",
+                                "color": "green"
+                            },
+                            {
+                                "label": "No data",
+                                "color": "black"
+                            }
+                        ]
+                    }
                 }
             ],
             "roles": "Hitte Water",
-            "description": "Brabant Water is het drinkwaterbedrijf dat aan 2,4 miljoen inwoners en bedrijven inNoord-Brabant drinkwater levert. BrabantWater gebruikt Lizard (en FEWS) voor opslag, validatie, presentatie en analyse van (GHG en GLG) grondwaterstanden."
+            "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus atque tempore fugiat, rem quo maxime cumque aut laudantium in sunt dolore optio doloribus non, distinctio praesentium pariatur quibusdam ducimus quam!"
         },
         {
             "id": 2,
@@ -102,7 +153,7 @@
                 }
             ],
             "roles": "Bagger Water",
-            "description": "Brabant Water is het drinkwaterbedrijf dat aan 2,4 miljoen inwoners en bedrijven inNoord-Brabant drinkwater levert. BrabantWater gebruikt Lizard (en FEWS) voor opslag, validatie, presentatie en analyse van (GHG en GLG) grondwaterstanden."
+            "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam dolores dolorum omnis, deleniti voluptatibus culpa temporibus, sint odit, unde libero similique rerum obcaecati repellat, natus fugiat ratione consectetur fuga assumenda."
         },
         {
             "id": 4,

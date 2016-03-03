@@ -7,7 +7,7 @@ import _ from 'underscore';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import fetch from 'isomorphic-fetch';
-import { Button, Grid, Row, Nav, Input, Col, Navbar, NavItem, NavDropdown, Modal, MenuItem, Jumbotron } from 'react-bootstrap';
+import { Button, Grid, Row, Nav, Input, Col, Navbar, NavItem, NavDropdown, Panel, Modal, MenuItem, Jumbotron } from 'react-bootstrap';
 import Isotope from 'isotope-layout';
 import L from 'leaflet';
 import styles from './index.css';
@@ -32,6 +32,7 @@ class App extends Component {
         'title': data.title,
         'information': data.information,
         'maplayers': data.maps,
+        'logo': data.logo,
       }))
       .then(() =>
         iso = new Isotope('#content', {
@@ -108,12 +109,22 @@ class App extends Component {
       return button;
     });
 
+    var imgUrl = this.state.logo;
+    var divStyle = {
+      backgroundImage: `url('${imgUrl}')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      width: '200px',
+      height: '100px'
+    };
+    var title = (this.state.logo) ? <div title={this.state.title} style={divStyle}/> : <h3>{this.state.title}</h3>;
+
     return (
       <div>
         <Grid className="">
             <Row>
               <Col md={11}>
-                <h3>{this.state.title}</h3>
+                {title}
               </Col>
               <Col md={1}>
                 <Button onClick={this.open} style={{margin:'15px 0 0 0'}}>Info</Button>
@@ -312,6 +323,46 @@ class Map extends Component {
 }
 
 
+class Legend extends Component {
+
+  constructor(props, context) {
+    super(props, context)
+    this.state = {}
+  }
+
+  render() {
+    var legends = this.props.data.mapLayers.map(function(layer,i ) {
+      if(layer.legend) {
+        var list = layer.legend.steps.map(function(step, j) {
+          return (
+            <li key={j} className={styles.legendItem}>
+              <svg height="10" width="10">
+                <circle cx="5" cy="5" r="5" stroke="none" fill={step.color} />
+              </svg>&nbsp;
+              {step.label}
+            </li>
+          );
+        });
+        return (
+          <div key={i} className={styles.legendWrapper}>
+            <strong>{layer.name}</strong>
+            <ul className={styles.legend}>
+              {list}
+            </ul>
+          </div>
+        );
+      }
+    });
+
+    var legends = legends.filter(function(legend){ if(legend) return legend;});
+    return (
+      <Panel header={'Legenda'}>
+        {legends.length > 0 ? legends : <p>Geen legenda beschikbaar</p>}
+      </Panel>
+    )
+  }
+}
+
 
 class MapLayer extends Component {
 
@@ -383,7 +434,7 @@ class MapLayer extends Component {
                     mapLayers={data.mapLayers} />
                 </Col>
                 <Col md={2}>
-                  <h5>Legenda</h5>
+                  <Legend data={data} />
                 </Col>
                 </Row>
               </Modal.Body>

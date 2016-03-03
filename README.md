@@ -34,3 +34,5 @@ TODO
 ====
 
  - Add legend functionality
+ 
+ - Configurable logo
