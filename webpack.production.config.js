@@ -1,9 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
 
-
-
-
 var config = {
   // We change to normal source mapping
   devtool: 'source-map',

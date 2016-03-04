@@ -270,6 +270,35 @@
             ],
             "roles": "Water",
             "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt harum veritatis asperiores saepe itaque quod. Beatae numquam accusantium, repellat minima voluptate. Laboriosam porro, quod eos architecto quibusdam aliquid assumenda quasi."
+        },
+        {
+            "id": 8,
+            "name": "Stroombanen",
+            "lizardUrl": "https://gnijholt.cartodb.com/viz/9f9f70c4-e203-11e5-abb0-0ecfd53eb7d3/public_map",
+            "coverImage": "https://cartocdn-ashbu.global.ssl.fastly.net/gnijholt/api/v1/map/333f7a59e679eda0326b3675c8a3c60c:1457094001581.5999/0/16/33673/21498.png",
+            "zoomLevel": 15,
+            "lat": 52.4950,
+            "lng": 4.9688,
+            "activeBaselayer": "dark",
+            "mapLayers": [
+                {
+                    "type": "tms",
+                    "name": "Stroombanen",
+                    "url": "https://cartocdn-ashbu.global.ssl.fastly.net/gnijholt/api/v1/map/333f7a59e679eda0326b3675c8a3c60c:1457094001581.5999/0/{z}/{x}/{y}.png",
+                    "layerName": "",
+                    "styles": "",
+                    "height": 256,
+                    "width": 256,
+                    "zindex": 32,
+                    "srs": "EPSG:3857",
+                    "format": "image/png",
+                    "transparent": false,
+                    "attribution": "CartoDB © 2016",
+                    "active": true
+                }
+            ],
+            "roles": "Water",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt harum veritatis asperiores saepe itaque quod. Beatae numquam accusantium, repellat minima voluptate. Laboriosam porro, quod eos architecto quibusdam aliquid assumenda quasi."
         }
     ]
 }
