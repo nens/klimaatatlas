@@ -397,7 +397,6 @@ class MapLayer extends Component {
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundColor: 'rgba(246,246,246,0.75)',
-      backgroundBlendMode: 'overlay'
     };
 
     var bekijkInLizard = (data.lizardUrl) ? <p><a href={data.lizardUrl} target="_blank"><Button>Bekijk in Lizard</Button></a></p> : <div/>;
