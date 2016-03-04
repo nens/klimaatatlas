@@ -136,7 +136,7 @@ class App extends Component {
               </Col>
             </Row>
             <Row>
-              <Col xs={0} md={6}>
+              <Col xs={12} md={6}>
                 <p><strong>Themas</strong></p>
                 <p>
                   <Button key={-1}
@@ -148,7 +148,7 @@ class App extends Component {
                   {categoryButtons}
                 </p>
               </Col>
-              <Col xs={6} md={6}>
+              <Col xs={12} md={6}>
                 <Input
                    id="filterinput"
                    type="text"
