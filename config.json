@@ -265,7 +265,40 @@
                     "format": "image/png",
                     "transparent": false,
                     "attribution": "Lizard © 2016",
-                    "active": true
+                    "active": true,
+                    "legend": {
+                        "type": "categorical",
+                        "steps": [
+                            {
+                                "label": "A",
+                                "color": "#1b8e43"
+                            },
+                            {
+                                "label": "B",
+                                "color": "#4aa847"
+                            },
+                            {
+                                "label": "C",
+                                "color": "#9dba3a"
+                            },
+                            {
+                                "label": "D",
+                                "color": "#faec0d"
+                            },
+                            {
+                                "label": "E",
+                                "color": "#eb9d21"
+                            },
+                            {
+                                "label": "F",
+                                "color": "#cf6527"
+                            },
+                            {
+                                "label": "G",
+                                "color": "#ce342a"
+                            }
+                        ]
+                    }                    
                 }
             ],
             "roles": "Water",
