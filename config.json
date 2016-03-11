@@ -1,7 +1,7 @@
 {
     "title": "Purmerend | Klimaatatlas",
     "logo": "http://i.imgur.com/0Dg7wGL.png",
-    "information": "In het kader van de Klimaatbestendige Stad is deze Klimaatatlas van Purmerend tot stand gekomen. <br/><br/>De Klimaatatlas kan een stimulans zijn om meer rekening te houden met de gevolgen van klimaatverandering in de stad, zoals extreme neerslag, droogte en hittestress.De gemeente Purmerend beschikt over een gedetailleerd hydraulisch rekenmodel (<a href='http://www.3di.nu/' target='_blank'>3Di</a>) dat zowel het rioolstelsel als het maaiveld van Purmerend bevat.<br/><br/> Hiermee is bij wijze van een “quick scan” wateroverlast als gevolg van een hevige klimaatbui berekend. De resultaten hiervan zijn gebruikt als basis voor de kaarten in deze atlas. De kaarten bieden inzicht in de mogelijke gevolgen van klimaatverandering.<br/><br/>Daarnaast toont het de gebiedskenmerken van de gemeente. De kaarten bieden ondersteuning bij het formuleren van het water- en omgevingsbeleid van de gemeente, maar ook bij gesprek tussen de gemeente en haar bewoners.",
+    "information": "Deze interactieve Klimaatatlas is opgesteld door de gemeente Purmerend voor het project 'Purmerend Klimaatbestendig'.<br/><br/>Het klimaat verandert en dit geldt ook voor Purmerend. Naast zeespiegelstijging verwacht het KNMI hogere temperaturen, nattere winters, hevigere regenbuien en kans op drogere zomers. Dit heeft gevolgen voor de stedelijke omgeving. Denk daarbij aan meer wateroverlast, grondwaterproblemen en hittestress. Dit zijn problemen waarbij iedereen in Purmerend mee te maken zou kunnen krijgen en waarbij de verantwoordelijkheid vaak ook verder reikt dan van de gemeente alleen. De vraag hierbij is natuurlijk wel waar we welke problemen verwachten.<br/><br/>De gemeente heeft met deze klimaatatlas de verwachte effecten van de klimaatverandering inzichtelijk gemaakt. Deze effecten zijn op hoog detailniveau bepaald met de meest recente gegevens en berekeningsmethoden. Hiermee biedt deze atlas geen pasklare oplossingen, maar wel een basis voor beleidsmakers, beheerders, inwoners, bedrijven, instellingen en belangengroeperingen om te bespreken welke problemen we verwachten en wie daarmee aan de slag kan.",
     "maps": [
         {
             "id": 1,
@@ -94,8 +94,8 @@
                     }
                 }
             ],
-            "roles": "Hitte Water",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus atque tempore fugiat, rem quo maxime cumque aut laudantium in sunt dolore optio doloribus non, distinctio praesentium pariatur quibusdam ducimus quam!"
+            "roles": "Hitte",
+            "description": "Hittestress is een term die aangeeft dat een sterk verhoogde gevoelstemperatuur optreedt, die als onaangenaam kan worden ervaren en zelfs schadelijk kan zijn voor mensen. Het type oppervlak en de aanwezigheid van schaduw zijn bepalend voor de mate van hittestress. Aanwezigheid van veel verhard oppervlak verhoogt de gevoelstemperatuur en daarmee de hittestress, terwijl aanwezigheid van groen en water deze verlaagt. <br/><br/>Met de basiskaart hittestress heeft u direct inzicht waar de gevoelstemperatuur flink oploopt tijdens warme dagen."
         },
         {
             "id": 2,
@@ -123,7 +123,7 @@
                     "active": true
                 }
             ],
-            "roles": "Water",
+            "roles": "Neerslag",
             "description": "<strong>Wateroverlast bij een klimaatbui van 100 mm in 2 uur</strong><br/><br/>Voor Purmerend is met rekentool ‘3Di’ in kaart gebracht welke waterdiepte wordt verwacht bij een bui van 100 mm in twee uur. Dit het beeld aan het einde van de bui.<br/><br/>Om dit beeld te krijgen, is gebruik gemaakt van het 3Di rioolmodel van Purmerend."
         },
         {
@@ -152,8 +152,8 @@
                     "active": true
                 }
             ],
-            "roles": "Bagger Water",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam dolores dolorum omnis, deleniti voluptatibus culpa temporibus, sint odit, unde libero similique rerum obcaecati repellat, natus fugiat ratione consectetur fuga assumenda."
+            "roles": "Projecten",
+            "description": "Onderstaande kaart geeft de baggerplan van HHNK"
         },
         {
             "id": 4,
@@ -181,8 +181,8 @@
                     "active": true
                 }
             ],
-            "roles": "Landgebruik",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A dolores sapiente magnam tempora, commodi et excepturi sint impedit voluptas dicta voluptatum reprehenderit, inventore laboriosam, aliquid quia quasi ipsum at. Vel."
+            "roles": "Gebiedskenmerken",
+            "description": "Een actueel en gedetailleerd overzicht van het landgebruik is belangrijk bij interpretatie en prioritering van klimaateffecten. De landgebruikskaart is samengesteld op basis van vier openbare kaarten: het BAG-register, de TOP10NL, het CBS bodemgebruik en de LGN6. Deze kaarten worden in de landgebruikskaart gecombineerd. Hierdoor is een optimaal onderscheid te maken tussen de verschillende landgebruikscategorieën. De landgebruikskaart is opgesteld in het kader van de Waterschadeschatter, een online schademodel voor het kwantificeren van schade door wateroverlast. Deze is dan ook gebruikt bij het berekenen van de potentiële schade na een hevige bui (zie ook de schadekaart onder het thema neerslag)."
         },
         {
             "id": 5,
@@ -210,7 +210,7 @@
                     "active": true
                 }
             ],
-            "roles": "Fysiek",
+            "roles": "Gebiedskenmerken Neerslag",
             "description": "Onderstaande kaart geeft het fysieke landgebruik"
         },
         {
@@ -239,8 +239,8 @@
                     "active": true
                 }
             ],
-            "roles": "Hoogte",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt harum veritatis asperiores saepe itaque quod. Beatae numquam accusantium, repellat minima voluptate. Laboriosam porro, quod eos architecto quibusdam aliquid assumenda quasi."
+            "roles": "Gebiedskenmerken Neerslag",
+            "description": "De basiskaart maaiveldhoogte bevat de hoogtegegevens van het AHN2 (Actueel Hoogtebestand Nederland, versie 2). Deze hoogtegegevens zijn tussen 2006 en 2012 voor heel Nederland bepaald. De metingen zijn “ingevlogen”: per vliegtuig is met een laserstraal het aardoppervlak afgetast om de hoogte te bepalen. Gemiddeld zijn acht hoogtemetingen per vierkante meter uitgevoerd. Deze zijn vertaald naar een maaiveldhoogte per 0.25 vierkante meter. Vervolgens is dit zogenaamde ruwe hoogtebestand gefilterd. In deze filtering worden alle objecten die niet tot het maaiveld behoren uit de hoogtekaart gefilterd. Denk hierbij aan auto’s, open water, bomen, struiken, etc. Meer informatie kunt u vinden op www.ahn.nl Het uitgefilterde hoogtebestand is vervolgens weer dicht geïnterpoleerd om een dekkende maaiveldhoogtekaart te krijgen."
         },
         {
             "id": 7,
@@ -301,7 +301,7 @@
                     }                    
                 }
             ],
-            "roles": "Water",
+            "roles": "Neerslag",
             "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt harum veritatis asperiores saepe itaque quod. Beatae numquam accusantium, repellat minima voluptate. Laboriosam porro, quod eos architecto quibusdam aliquid assumenda quasi."
         },
         {
@@ -330,8 +330,36 @@
                     "active": true
                 }
             ],
-            "roles": "Water",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt harum veritatis asperiores saepe itaque quod. Beatae numquam accusantium, repellat minima voluptate. Laboriosam porro, quod eos architecto quibusdam aliquid assumenda quasi."
-        }
+            "roles": "Neerslag",
+            "description": "De Stroombanenkaart laat zien waar op het maaiveld water zich concentreert en welke route het vervolgens aflegt in de afstroming. De Stroombanenkaart is afgeleid uit de geïnterpoleerde AHN2, door middel van een obstakeldetectietool. Deze kaart geeft de mogelijkheid om eenvoudig de herkomst van water(overlast) te herleiden en zo de keuzes van (ruimtelijke inpassing van) maatregelen te ondersteunen."
+        },
+        {"id": 9,
+            "name": "Drooglegging",
+            "lizardUrl": "https://hhnk6.lizard.net/nl/map/drooglegging,waterchain,topography,rain/point@52.5043,4.9725,13/Mar,11,2016-Mar,11,2016",
+            "coverImage": "https://raster.lizard.net/wms?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=cover%3Aphy&STYLES=lc-phy&FORMAT=image%2Fpng&TRANSPARENT=false&HEIGHT=256&WIDTH=256&ZINDEX=32&SRS=EPSG%3A3857&BBOX=547900.6187481433,6878109.5532133,552792.5885583946,6883001.523023552",
+            "zoomLevel": 13,
+            "lat": 52.5028,
+            "lng": 4.9619,
+            "activeBaselayer": "topo",
+            "mapLayers": [
+                {
+                    "type": "wms",
+                    "name": "Drooglegging",
+                    "url": "https://raster.lizard.net/wms?STYLES=mpl:cb:seq:YlGnBu_r",
+                    "layerName": "intern:nl:hhnk:drooglegging",
+                    "styles": "",
+                    "height": 256,
+                    "width": 256,
+                    "zindex": 32,
+                    "srs": "EPSG:3857",
+                    "format": "image/png",
+                    "transparent": false,
+                    "attribution": "Lizard © 2016",
+                    "active": true
+                }
+            ],
+            "roles": "Droogte Neerslag",
+            "description": "De basiskaart drooglegging laat op hoog detailniveau (0.25m2) zien welke delen van de gemeente Purmerend gevoelig zijn voor droogte. Drooglegging is het verschil tussen maaiveld en de waterstand in het oppervlaktewater. In bemalen gebieden geeft dit een indicatie van te verwachten minimale en maximale grondwaterstanden. De informatie kan helpen bij analyse en interpretatie van zowel droogte als wateroverlast. De kaart laat zien hoe hoog het maaiveld boven het waterpeil van de dichtstbijzijnde waterpartij ligt. De grondwaterstand zakt bij droogte uit tot dit waterpeil. Hoe hoger het maaiveld, hoe dieper de grondwaterstand kan zakken en hoe meer de bodem kan uitdrogen. "
+       }
     ]
 }
