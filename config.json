@@ -245,8 +245,8 @@
         {
             "id": 7,
             "name": "Waterlabel",
-            "lizardUrl": "http://waterlabel.sandbox.lizard.net/",
-            "coverImage": "http://waterlabeltiles.sandbox.lizard.net/bag/16/33654/21533.png",
+            "lizardUrl": "https://waterlabel.sandbox.lizard.net/",
+            "coverImage": "https://waterlabeltiles.sandbox.lizard.net/bag/16/33654/21533.png",
             "zoomLevel": 13,
             "lat": 52.5028,
             "lng": 4.9619,
@@ -255,7 +255,7 @@
                 {
                     "type": "tms",
                     "name": "Waterlabel",
-                    "url": "http://waterlabeltiles.sandbox.lizard.net/bag/{z}/{x}/{y}.png",
+                    "url": "https://waterlabeltiles.sandbox.lizard.net/bag/{z}/{x}/{y}.png",
                     "layerName": "",
                     "styles": "",
                     "height": 256,
@@ -336,7 +336,7 @@
         {"id": 9,
             "name": "Drooglegging",
             "lizardUrl": "https://hhnk6.lizard.net/nl/map/drooglegging,waterchain,topography,rain/point@52.5043,4.9725,13/Mar,11,2016-Mar,11,2016",
-            "coverImage": "https://raster.lizard.net/wms?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=cover%3Aphy&STYLES=lc-phy&FORMAT=image%2Fpng&TRANSPARENT=false&HEIGHT=256&WIDTH=256&ZINDEX=32&SRS=EPSG%3A3857&BBOX=547900.6187481433,6878109.5532133,552792.5885583946,6883001.523023552",
+            "coverImage": "https://raster.lizard.net/wms?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=intern%3Anl%3Ahhnk%3Adrooglegging&STYLES=YlGnBu_r%3A0%3A3&FORMAT=image%2Fpng&TRANSPARENT=false&HEIGHT=256&WIDTH=256&ZINDEX=39&SRS=EPSG%3A3857&BBOX=550346.603653269,6892785.462644055,551569.5961058318,6894008.455096616",
             "zoomLevel": 13,
             "lat": 52.5028,
             "lng": 4.9619,
@@ -345,7 +345,7 @@
                 {
                     "type": "wms",
                     "name": "Drooglegging",
-                    "url": "https://raster.lizard.net/wms?STYLES=mpl:cb:seq:YlGnBu_r",
+                    "url": "https://raster.lizard.net/wms?STYLES=YlGnBu_r%3A0%3A3",
                     "layerName": "intern:nl:hhnk:drooglegging",
                     "styles": "",
                     "height": 256,
