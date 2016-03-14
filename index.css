@@ -41,7 +41,7 @@
 }
 
 .tag {
-  text-decoration: underline !important;
+  /*text-decoration: underline !important;*/
   font-weight: bold;
   margin: 0 3px 0 0;
   padding: 0;

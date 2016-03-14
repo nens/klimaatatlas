@@ -17,8 +17,10 @@ class App extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
+      filtervalue: '',
       maplayers: [],
-      showModal: false
+      showModal: false,
+      roles: [],
     }
     this.close = this.close.bind(this);    
     this.open = this.open.bind(this);    
@@ -32,6 +34,12 @@ class App extends Component {
         'title': data.title,
         'information': data.information,
         'maplayers': data.maps,
+        'roles': _.unique(_.flatten(data.maps.map((map) => {
+          var roles = map.roles.split(' ');
+          return roles.map(function(l) {
+            return l;
+          })
+        }))),
         'logo': data.logo,
       }))
       .then(() =>
@@ -44,6 +52,7 @@ class App extends Component {
 
   handleClick(e) {
       var filtervalue = e.target.value;
+      this.setState({filtervalue:filtervalue});
       if(filtervalue) {
         iso.arrange({
           filter: filtervalue
@@ -89,22 +98,16 @@ class App extends Component {
     var self = this;
     const {} = this.props
 
-    var allroles = this.state.maplayers.map(function(layer) { 
-      var layers = layer.roles.split(' ');
-      return layers.map(function(l) {
-        return l;
-      })
-    });
-    var roles = _.unique(_.flatten(allroles));
-
-    let categoryButtons = roles.map((category, i) => {
+    let categoryButtons = this.state.roles.map((category, i) => {
       var _category = `.${category}`;
       var tooltipText = `Alles van thema '${category.toLowerCase().replace('-', ' ')}' tonen`;
+      var style = {textDecoration: (this.state.filtervalue === _category) ? 'underline' : 'none'};
       var button = <OverlayTrigger 
                     key={i} 
                     placement="bottom" 
                     overlay={<Tooltip id='themaTooltip'>{tooltipText}</Tooltip>}>
                   <Button key={i}
+                     style={style}
                      bsStyle="link" 
                      onClick={self.handleClick} 
                      className={styles.tag}
@@ -123,7 +126,7 @@ class App extends Component {
     };
     var title = (this.state.logo) ? <div title={this.state.title} style={divStyle}/> : <h3>{this.state.title}</h3>;
 
-
+    var alles_style = {textDecoration: (this.state.filtervalue === '') ? 'underline' : 'none'};
     return (
       <div>
         <Grid className="">
@@ -145,6 +148,7 @@ class App extends Component {
                 <p><strong>Thema's</strong></p>
                 <p>
                   <Button key={-1}
+                     style={alles_style}
                      bsStyle="link" 
                      onClick={self.handleClick} 
                      className={styles.tag}
