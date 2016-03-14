@@ -7,7 +7,7 @@ import _ from 'underscore';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import fetch from 'isomorphic-fetch';
-import { Button, Grid, Row, Nav, Input, Col, Navbar, NavItem, NavDropdown, Panel, Modal, MenuItem, Jumbotron } from 'react-bootstrap';
+import { Button, Badge, Grid, Row, Nav, Input, Col, Navbar, NavItem, NavDropdown, Panel, Modal, MenuItem, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import Isotope from 'isotope-layout';
 import L from 'leaflet';
 import styles from './index.css';
@@ -82,7 +82,6 @@ class App extends Component {
   }
 
   open() {
-    var self = this;
     this.setState({ showModal: true });
   }  
 
@@ -100,12 +99,17 @@ class App extends Component {
 
     let categoryButtons = roles.map((category, i) => {
       var _category = `.${category}`;
-      var button = <Button key={i}
+      var tooltipText = `Alles van thema '${category.toLowerCase().replace('-', ' ')}' tonen`;
+      var button = <OverlayTrigger 
+                    key={i} 
+                    placement="bottom" 
+                    overlay={<Tooltip id='themaTooltip'>{tooltipText}</Tooltip>}>
+                  <Button key={i}
                      bsStyle="link" 
                      onClick={self.handleClick} 
                      className={styles.tag}
-                     value={_category}>{category}
-                  </Button>;
+                     value={_category}>{category.replace('-', ' ')}
+                  </Button></OverlayTrigger>;
       return button;
     });
 
@@ -118,6 +122,7 @@ class App extends Component {
       height: '100px'
     };
     var title = (this.state.logo) ? <div title={this.state.title} style={divStyle}/> : <h3>{this.state.title}</h3>;
+
 
     return (
       <div>
@@ -137,7 +142,7 @@ class App extends Component {
             </Row>
             <Row>
               <Col xs={12} md={6}>
-                <p><strong>Themas</strong></p>
+                <p><strong>Thema's</strong></p>
                 <p>
                   <Button key={-1}
                      bsStyle="link" 
@@ -202,13 +207,10 @@ class MapLayers extends Component {
       return 0;
     });
 
-
-    var keyidx = 0;
-    var mapLayerComponentSorted = mapLayerComponents.map((mapLayerComponent) => {
-      keyidx++;
+    var mapLayerComponentSorted = mapLayerComponents.map((mapLayerComponent, i) => {
       return (
         <MapLayer
-          key={keyidx}
+          key={i}
           data={mapLayerComponent} />
       )
     });
@@ -280,6 +282,8 @@ class Map extends Component {
       zoomControl: true,
     });
 
+    map.setMaxBounds(map.getBounds());
+        
     var scale = L.control.scale().addTo(map);
     var layerControls = new L.control.layers(baseMaps, overlayMaps).addTo(map);    
 
@@ -390,7 +394,10 @@ class MapLayer extends Component {
 
     var isotopeClasses = styles.repocontainer + ' element ' + data.roles;
     var repoClasses = 'repo ' + data.key;
-    var rolesText = data.roles.replace(/ /g, ', ');
+    var rolesText = data.roles.replace(/ /g, ', ').replace('-', ' ');
+    var badges = data.roles.split(' ').map((role, i) => {
+      return <Badge key={i} style={{marginRight:2}}>{role.replace('-', ' ')}</Badge>
+    });
     var imgUrl = data.coverImage;
     var divStyle = {
       backgroundImage: 'url(' + imgUrl + ')',
@@ -417,7 +424,7 @@ class MapLayer extends Component {
             <Modal show={this.state.showModal} bsSize="large" onHide={this.close}>
 
               <Modal.Header closeButton>
-                <Modal.Title>{data.name}</Modal.Title>
+                <Modal.Title>{data.name} {badges}</Modal.Title>
               </Modal.Header>
               
               <Modal.Body>
