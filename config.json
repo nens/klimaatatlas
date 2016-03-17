@@ -358,8 +358,53 @@
                     "active": true
                 }
             ],
-            "roles": "Droogte Neerslag",
+            "roles": "Neerslag",
             "description": "De basiskaart drooglegging laat op hoog detailniveau (0.25m2) zien welke delen van de gemeente Purmerend gevoelig zijn voor droogte. Drooglegging is het verschil tussen maaiveld en de waterstand in het oppervlaktewater. In bemalen gebieden geeft dit een indicatie van te verwachten minimale en maximale grondwaterstanden. De informatie kan helpen bij analyse en interpretatie van zowel droogte als wateroverlast. De kaart laat zien hoe hoog het maaiveld boven het waterpeil van de dichtstbijzijnde waterpartij ligt. De grondwaterstand zakt bij droogte uit tot dit waterpeil. Hoe hoger het maaiveld, hoe dieper de grondwaterstand kan zakken en hoe meer de bodem kan uitdrogen. "
-       }
+       },
+       {
+            "id": 10,
+            "name": "Schade",
+            "lizardUrl": "https://purmerend6.lizard.net",
+            "coverImage": "http://geoserver9.lizard.net/geoserver/purm/wms?LAYERS=purm%3Aschade_purm&STYLES=&FORMAT=image%2Fjpeg&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&SRS=EPSG%3A3857&BBOX=550346.603653269,6892785.462644055,551569.5961058318,6894008.455096616",
+            "zoomLevel": 13,
+            "lat": 52.5028,
+            "lng": 4.9619,
+            "activeBaselayer": "topo",
+            "mapLayers": [
+                {
+                    "type": "wms",
+                    "name": "Schade per wijk",
+                    "url": "http://geoserver9.lizard.net/geoserver/purm/wms?,
+                    "layerName": "purm_klim_schade_wijk",
+                    "styles": "",
+                    "height": 256,
+                    "width": 256,
+                    "zindex": 32,
+                    "srs": "EPSG:3857",
+                    "format": "image/png",
+                    "transparent": false,
+                    "attribution": "Lizard © 2016",
+                    "active": false,
+                },
+                {
+                    "type": "wms",
+                    "name": "Schade (0,25m2)",
+                    "url": "https://geoserver9.lizard.net/geoserver/purm/wms?",
+                    "layerName": "schade_purm",
+                    "styles": "",
+                    "height": 256,
+                    "width": 256,
+                    "zindex": 20,
+                    "srs": "EPSG:3857",
+                    "format": "image/png",
+                    "transparent": true,
+                    "attribution": "Lizard © 2016",
+                    "active": true,
+                    
+                }
+            ],
+            "roles": "Neerslag",
+            "description": "Met de Waterschadeschatter is de schade berekend die optreedt bij een klimaatbui van 100 mm in twee uur (zie ook de Wateroverlastkaart). In deze kaart zijn schadebedragen opgenomen voor de directe schade aan bijvoorbeeld vloerbedekking, maar ook indirecte schade door het huisvesting in vervangende woonruimte. De kaart geeft inzicht in potentiële schade in euro’s per vierkante meter."
+        }
     ]
 }
