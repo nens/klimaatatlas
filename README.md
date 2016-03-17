@@ -35,3 +35,4 @@ TODO
 ----
 
 - Add slideshow feature using mapboxGL and the Raster servers TMS endpoint
+- Add back-end using https://ariesfath.wordpress.com/2015/08/30/creating-a-json-editor-for-django-admin/
