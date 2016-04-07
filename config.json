@@ -365,7 +365,7 @@
             "id": 10,
             "name": "Schade",
             "lizardUrl": "https://purmerend6.lizard.net",
-            "coverImage": "http://geoserver9.lizard.net/geoserver/purm/wms?&SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=purm_klim_schade_wijk&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=false&HEIGHT=256&WIDTH=256&STYLES=&HEIGHT=256&WIDTH=256&ZINDEX=32&SRS=EPSG%3A3857&SRS=EPSG%3A3857&BBOX=552792.5885583946,6892785.462644055,557684.558368646,6897677.432454301",
+            "coverImage": "https://geoserver9.lizard.net/geoserver/purm/wms?&SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=purm_klim_schade_wijk&STYLES=&FORMAT=image%2Fpng&TRANSPARENT=false&HEIGHT=256&WIDTH=256&STYLES=&HEIGHT=256&WIDTH=256&ZINDEX=32&SRS=EPSG%3A3857&SRS=EPSG%3A3857&BBOX=552792.5885583946,6892785.462644055,557684.558368646,6897677.432454301",
             "zoomLevel": 13,
             "lat": 52.5028,
             "lng": 4.9619,
@@ -374,7 +374,7 @@
                 {
                     "type": "wms",
                     "name": "Schade per wijk",
-                    "url": "http://geoserver9.lizard.net/geoserver/purm/wms?",
+                    "url": "https://geoserver9.lizard.net/geoserver/purm/wms?",
                     "layerName": "purm_klim_schade_wijk",
                     "styles": "",
                     "height": 256,
