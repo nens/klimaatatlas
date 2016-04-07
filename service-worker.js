@@ -27,10 +27,26 @@ self.addEventListener('fetch', function(event) {
         caches.match(event.request)
         .then(function(response) {
             // Cache hit - return response
+            console.log('Cache hit - return response');
             if (response) {
                 return response;
             }
-            return fetch(event.request);
+            return fetchAndCache(event.request);
         })
     );
 });
+
+//
+// Helper to fetch and store in cache.
+//
+function fetchAndCache(request) {
+  return fetch(request)
+    .then(function (response) {
+      return caches.open('v1::fundamentals')
+        .then(function(cache) {
+          console.log('Store in cache', response);
+          cache.put(request, response.clone());
+          return response;
+        });
+    });
+}

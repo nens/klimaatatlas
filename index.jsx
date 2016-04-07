@@ -51,16 +51,16 @@ class App extends Component {
             layoutMode: 'fitRows'
         })     
       ).then(function() {
-        if ('serviceWorker' in navigator) {
-          var urls = [];
-          urls.push(self.state.logo);
-          self.state.maplayers.forEach((layer) => {
-            urls.push(layer.coverImage);
-          })
-          caches.open('v1::fundamentals').then(function(cache) {
-            cache.addAll(urls);
-          });
-        }        
+        // if ('serviceWorker' in navigator) {
+        //   var urls = [];
+        //   urls.push(self.state.logo);
+        //   self.state.maplayers.forEach((layer) => {
+        //     urls.push(layer.coverImage);
+        //   })
+        //   caches.open('v1::fundamentals').then(function(cache) {
+        //     cache.addAll(urls);
+        //   });
+        // }        
       })
       .catch(e => console.log("Loading XHR failed", e))     
   }
@@ -256,18 +256,18 @@ class Map extends Component {
     this.map = self.createMap(ReactDOM.findDOMNode(self));
     var tileurls = [];
 
-    if ('serviceWorker' in navigator) {
-      for(var layer in this.map._layers) {
-        var currentLayer = this.map._layers[layer];
-        for(var tile in currentLayer._tiles) {
-          var currentTile = currentLayer._tiles[tile];
-          tileurls.push(currentTile.src);
-        }
-      }      
-      caches.open('v1::fundamentals').then(function(cache) {
-        cache.addAll(tileurls);
-      });
-    }
+    // if ('serviceWorker' in navigator) {
+    //   for(var layer in this.map._layers) {
+    //     var currentLayer = this.map._layers[layer];
+    //     for(var tile in currentLayer._tiles) {
+    //       var currentTile = currentLayer._tiles[tile];
+    //       tileurls.push(currentTile.src);
+    //     }
+    //   }      
+    //   caches.open('v1::fundamentals').then(function(cache) {
+    //     cache.addAll(tileurls);
+    //   });
+    // }
   }  
 
   createMap(element) {
