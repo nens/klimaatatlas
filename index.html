@@ -19,11 +19,11 @@
 	  registerPromise.then(function(registration){
 	      console.log('Successfully registered service worker', registration);
 	  }).catch(function(err) {
-	      warn('Failed to register Service Worker. ' + err);
+	      console.log('Failed to register Service Worker. ' + err);
 	      console.error(err);
 	  });
 	} else {
-	    warn('Your browser does not support Service Workers. ☹');
+	    console.log('Your browser does not support Service Workers. ☹');
 	}
 
         </script>	
