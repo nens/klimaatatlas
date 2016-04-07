@@ -10,11 +10,9 @@
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
-        <script>
+  <script>
 	if ('serviceWorker' in navigator) {
-	  var registerPromise = navigator.serviceWorker.register(
-	      './service-worker.js'
-	  );
+	  var registerPromise = navigator.serviceWorker.register('./service-worker.js');
 	
 	  registerPromise.then(function(registration){
 	      console.log('Successfully registered service worker', registration);
@@ -25,8 +23,7 @@
 	} else {
 	    console.log('Your browser does not support Service Workers. ☹');
 	}
-
-        </script>	
+  </script>	
   </head>
   <body>
     <div id="root"></div>

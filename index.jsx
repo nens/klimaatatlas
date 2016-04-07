@@ -10,8 +10,11 @@ import fetch from 'isomorphic-fetch';
 import { Button, Badge, Grid, Row, Nav, Input, Col, Navbar, NavItem, NavDropdown, Panel, Modal, MenuItem, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import Isotope from 'isotope-layout';
 import L from 'leaflet';
+import tilebelt from 'tilebelt';
 import styles from './index.css';
 var iso, map;
+window.tilebelt = tilebelt;
+window.tilesArray = [];
 
 class App extends Component {
   constructor(props, context) {
@@ -145,7 +148,7 @@ class App extends Component {
             </Row>
             <Row>
               <Col xs={12} md={6}>
-                <p><strong>Thema's</strong></p>
+                <p><strong>Thema</strong></p>
                 <p>
                   <Button key={-1}
                      style={alles_style}
@@ -239,6 +242,21 @@ class Map extends Component {
     var self = this;
     L.Icon.Default.imagePath = '//cdn.leafletjs.com/leaflet-0.7.3/images';
     this.map = self.createMap(ReactDOM.findDOMNode(self));
+    var tileurls = [];
+
+    if ('serviceWorker' in navigator) {
+
+      for(var layer in this.map._layers) {
+        var currentLayer = this.map._layers[layer];
+        for(var tile in currentLayer._tiles) {
+          var currentTile = currentLayer._tiles[tile];
+          tileurls.push(currentTile.src);
+        }
+      }      
+      caches.open('v1::fundamentals').then(function(cache) {
+        cache.addAll(tileurls);
+      });
+    }
   }  
 
   createMap(element) {
