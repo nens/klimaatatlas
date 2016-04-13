@@ -7,23 +7,24 @@
     <title>Purmerend Klimaatlas (Powered by Lizard)</title>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"> -->
 
   <script>
-	if ('serviceWorker' in navigator) {
-	  var registerPromise = navigator.serviceWorker.register('./service-worker.js');
-	
-	  registerPromise.then(function(registration){
-	      console.log('Successfully registered service worker', registration);
-	  }).catch(function(err) {
-	      console.log('Failed to register Service Worker. ' + err);
-	      console.error(err);
-	  });
-	} else {
-	    console.log('Your browser does not support Service Workers. ☹');
-	}
-  </script>	
+  // NOTE: ServiceWorker disabled while not yet in production phase...
+	// if ('serviceWorker' in navigator) {
+	//   var registerPromise = navigator.serviceWorker.register('./service-worker.js');
+  //
+	//   registerPromise.then(function(registration){
+	//       console.log('Successfully registered service worker', registration);
+	//   }).catch(function(err) {
+	//       console.log('Failed to register Service Worker. ' + err);
+	//       console.error(err);
+	//   });
+	// } else {
+	//     console.log('Your browser does not support Service Workers. ☹');
+	// }
+  </script>
   </head>
   <body>
     <div id="root"></div>
@@ -37,6 +38,6 @@
   ga('create', 'UA-75081112-1', 'auto');
   ga('send', 'pageview');
 
-</script>    
+</script>
   </body>
 </html>
