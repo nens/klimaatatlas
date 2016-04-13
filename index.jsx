@@ -1,104 +1,149 @@
-/*jshint esnext: true*/
-
-require("!style!css!./node_modules/leaflet/dist/leaflet.css");
+require('!style!css!./node_modules/leaflet/dist/leaflet.css');
 import 'babel-polyfill';
 import $ from 'jquery';
 import _ from 'underscore';
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import MapLayers from './components/MapLayers';
 import fetch from 'isomorphic-fetch';
-import { Button, Badge, Grid, Row, Nav, Input, Col, Navbar, NavItem, NavDropdown, Panel, Modal, MenuItem, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import {
+    Button,
+    Grid,
+    Row,
+    Input,
+    Col,
+    Modal,
+    Tooltip,
+    OverlayTrigger,
+} from 'react-bootstrap';
 import Isotope from 'isotope-layout';
-import L from 'leaflet';
-import tilebelt from 'tilebelt';
 import styles from './index.css';
-var iso, map;
-window.tilebelt = tilebelt;
-window.tilesArray = [];
+const postcodeRegex = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
+let iso;
 
 class App extends Component {
   constructor(props, context) {
-    super(props, context)
+    super(props, context);
     this.state = {
       filtervalue: '',
-      maplayers: [],
       showModal: false,
-      roles: [],
-    }
-    this.close = this.close.bind(this);    
-    this.open = this.open.bind(this);    
+      postcode: (localStorage.getItem('postcode') ? localStorage.getItem('postcode') : ''),
+      housenumber: (localStorage.getItem('housenumber') ? localStorage.getItem('housenumber') : ''),
+      lat: (localStorage.getItem('lat') ? localStorage.getItem('lat') : ''),
+      lng: (localStorage.getItem('lng') ? localStorage.getItem('lng') : ''),
+    };
+    this.close = this.close.bind(this);
+    this.open = this.open.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
+    this.handlePostcodeChange = this.handlePostcodeChange.bind(this);
+    this.handleHousenumberChange = this.handleHousenumberChange.bind(this);
+    this.checkAndSetLocation = this.checkAndSetLocation.bind(this);
+    this.clearPostcode = this.clearPostcode.bind(this);
+    this.clearHousenumber = this.clearHousenumber.bind(this);
   }
 
   componentDidMount() {
-    var self = this;
-    fetch('config.json').then(r => r.json())
-      .then(data => this.setState({
-        'title': data.title,
-        'information': data.information,
-        'maplayers': data.maps,
-        'roles': _.unique(_.flatten(data.maps.map((map) => {
-          var roles = map.roles.split(' ');
-          return roles.map(function(l) {
-            return l;
-          })
-        }))),
-        'logo': data.logo,
-      }))
-      .then(() =>
-        iso = new Isotope('#content', {
-            layoutMode: 'fitRows'
-        })     
-      ).then(function() {
-        // if ('serviceWorker' in navigator) {
-        //   var urls = [];
-        //   urls.push(self.state.logo);
-        //   self.state.maplayers.forEach((layer) => {
-        //     urls.push(layer.coverImage);
-        //   })
-        //   caches.open('v1::fundamentals').then(function(cache) {
-        //     cache.addAll(urls);
-        //   });
-        // }        
-      })
-      .catch(e => console.log("Loading XHR failed", e))     
-  }
-
-  handleClick(e) {
-      var filtervalue = e.target.value;
-      this.setState({filtervalue:filtervalue});
-      if(filtervalue) {
-        iso.arrange({
-          filter: filtervalue
-        });          
-      } else {
-        iso.arrange({
-          filter: '*'
-        });          
-      }
-  }
-
-  handleFilter(e) {
-    var input = this.refs.filter;
-    var filtervalue = this.refs.filter.refs.input.value;
-    iso.arrange({
-      filter: (f) => {
-        var currentTitle = $(f).find('.repo-header h2 a').text();
-        if( currentTitle.toLowerCase().indexOf(filtervalue.toLowerCase()) != -1) {
-          return true;
-        } else {
-          return false;
-        }
-      }
+    iso = new Isotope('#content', {
+      layoutMode: 'fitRows',
     });
   }
 
-  handleSort(e) {
-      var sortValue = $(e.target).val();
+  handleClick(e) {
+    const filtervalue = e.target.value;
+    this.setState({ filtervalue });
+    if (filtervalue) {
       iso.arrange({
-          sortBy: sortValue
+        filter: filtervalue,
       });
+    }
+    else {
+      iso.arrange({
+        filter: '*',
+      });
+    }
+  }
+
+  handlePostcodeChange(event) {
+    const postcode = event.target.value;
+
+    if (postcode) {
+      this.setState({ postcode });
+      localStorage.setItem('postcode', postcode);
+    }
+    else {
+      localStorage.removeItem('postcode');
+      this.setState({ postcode: '', lat: '', lng: '' });
+    }
+    this.checkAndSetLocation();
+  }
+
+  handleHousenumberChange(event) {
+    const housenumber = event.target.value;
+    if (housenumber) {
+      this.setState({ housenumber });
+      localStorage.setItem('housenumber', housenumber);
+    }
+    else {
+      localStorage.removeItem('housenumber');
+      this.setState({ housenumber: '', lat: '', lng: '' });
+    }
+    this.checkAndSetLocation();
+  }
+
+  checkAndSetLocation() {
+    if (postcodeRegex.test(this.state.postcode) && this.state.housenumber) {
+      fetch(`https://postcoder.sandbox.lizard.net/api/v1/geocode?postcode=${this.state.postcode}&housenumber=${this.state.housenumber}`)
+        .then(r => r.json())
+        .then(data => {
+          if (data.lat && data.lng) {
+            this.setState({ lat: data.lat, lng: data.lng });
+            localStorage.setItem('lat', data.lat);
+            localStorage.setItem('lng', data.lng);
+          }
+          else {
+            this.setState({ lat: '', lng: '' });
+            localStorage.removeItem('lat');
+            localStorage.removeItem('lng');
+          }
+        })
+        .catch(e => console.log('Loading XHR failed', e));
+    }
+  }
+
+  handleFilter(e) {
+    const filtervalue = e.target.value;
+    this.setState({ filtervalue: '' });
+    iso.arrange({
+      filter: (f) => {
+        const currentTitle = $(f).find('.repo-header h2 a').text();
+        if (currentTitle.toLowerCase().indexOf(filtervalue.toLowerCase()) !== -1) {
+          return true;
+        }
+        return false;
+      },
+    });
+  }
+
+  clearPostcode() {
+    localStorage.removeItem('lat');
+    localStorage.removeItem('lng');
+    localStorage.removeItem('postcode');
+    this.setState({ postcode: '', lat: '', lng: '' });
+  }
+
+  clearHousenumber() {
+    localStorage.removeItem('lat');
+    localStorage.removeItem('lng');
+    localStorage.removeItem('housenumber');
+    this.setState({ housenumber: '', lat: '', lng: '' });
+  }
+
+  handleSort(e) {
+    const sortValue = $(e.target).val();
+    iso.arrange({
+      sortBy: sortValue,
+    });
   }
 
   close() {
@@ -107,50 +152,73 @@ class App extends Component {
 
   open() {
     this.setState({ showModal: true });
-  }  
+  }
 
   render() {
-    var self = this;
-    const {} = this.props
+    const self = this;
+    const title = this.props.data.title;
+    const information = this.props.data.information;
+    const maplayers = this.props.data.maps;
+    const roles = _.unique(_.flatten(this.props.data.maps.map((_map) => {
+      const _roles = _map.roles.split(' ');
+      return _roles.map((l) => {
+        return l;
+      });
+    }))).sort(); // returns alphabetical list of single occurrences of every role in the data
+    const logo = this.props.data.logo;
 
-    let categoryButtons = this.state.roles.map((category, i) => {
-      var _category = `.${category}`;
-      var tooltipText = `Alles van thema '${category.toLowerCase().replace('-', ' ')}' tonen`;
-      var style = {textDecoration: (this.state.filtervalue === _category) ? 'underline' : 'none'};
-      var button = <OverlayTrigger 
-                    key={i} 
-                    placement="bottom" 
-                    overlay={<Tooltip id='themaTooltip'>{tooltipText}</Tooltip>}>
-                  <Button key={i}
-                     style={style}
-                     bsStyle="link" 
-                     onClick={self.handleClick} 
-                     className={styles.tag}
-                     value={_category}>{category.replace('-', ' ')}
-                  </Button></OverlayTrigger>;
+    let categoryButtons = roles.map((category, i) => {
+      const _category = `.${category}`;
+      const tooltipText = `Alles van thema '${category.toLowerCase().replace('-', ' ')}' tonen`;
+      const style = { textDecoration: (this.state.filtervalue === _category) ? 'underline' : 'none' };
+      const button = <OverlayTrigger
+                        key={i}
+                        placement="bottom"
+                        overlay={<Tooltip id='themaTooltip'>{tooltipText}</Tooltip>}>
+                          <Button key={i}
+                             style={style}
+                             bsStyle="link"
+                             onClick={self.handleClick}
+                             className={styles.tag}
+                             value={_category}>{category.replace('-', ' ')}
+                          </Button>
+                    </OverlayTrigger>;
       return button;
     });
-
-    var imgUrl = this.state.logo;
-    var divStyle = {
+    const imgUrl = logo;
+    const divStyle = {
       backgroundImage: `url('${imgUrl}')`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       width: '200px',
-      height: '100px'
+      height: '100px',
     };
-    var title = (this.state.logo) ? <div title={this.state.title} style={divStyle}/> : <h3>{this.state.title}</h3>;
+    const titleDiv = (logo) ? <div title={title} style={divStyle}/> : <h3>{title}</h3>;
+    const allesStyle = { textDecoration: (this.state.filtervalue === '') ? 'underline' : 'none' };
+    const postcodeLabel = (this.state.postcode) ?
+      <span>
+        Postcode <a style={{ textDecoration: 'none', cursor: 'pointer' }}
+                    onClick={this.clearPostcode}>
+                    <i className='fa fa-remove'></i>
+                 </a>
+      </span> : 'Postcode';
+    const housenumberLabel = (this.state.housenumber) ?
+      <span>
+        Huisnummer <a style={{ textDecoration: 'none', cursor: 'pointer' }}
+                      onClick={this.clearHousenumber}>
+                      <i className='fa fa-remove'></i>
+                   </a>
+      </span> : 'Huisnummer';
 
-    var alles_style = {textDecoration: (this.state.filtervalue === '') ? 'underline' : 'none'};
     return (
       <div>
         <Grid className="">
             <Row>
               <Col md={11}>
-                {title}
+                {titleDiv}
               </Col>
               <Col md={1}>
-                <Button onClick={this.open} style={{margin:'15px 0 0 0'}}>Info</Button>
+                <Button onClick={this.open} style={{ margin: '15px 0 0 0' }}>Info</Button>
               </Col>
             </Row>
             <Row>
@@ -159,20 +227,20 @@ class App extends Component {
               </Col>
             </Row>
             <Row>
-              <Col xs={12} md={6}>
+              <Col xs={12} md={4}>
                 <p><strong>Thema</strong></p>
                 <p>
                   <Button key={-1}
-                     style={alles_style}
-                     bsStyle="link" 
-                     onClick={self.handleClick} 
+                     style={allesStyle}
+                     bsStyle="link"
+                     onClick={self.handleClick}
                      className={styles.tag}
                      value="">Alles
                   </Button>
                   {categoryButtons}
                 </p>
               </Col>
-              <Col xs={12} md={6}>
+              <Col xs={12} md={4}>
                 <Input
                    id="filterinput"
                    type="text"
@@ -180,321 +248,72 @@ class App extends Component {
                    label="Filter"
                    hasFeedback
                    groupClassName='group-class'
-                   labelClassName='label-class'                     
-                   ref="filter" 
+                   labelClassName='label-class'
+                   ref="filter"
                    onChange={this.handleFilter} />
-              </Col>                  
+              </Col>
+              <Col xs={12} md={4}>
+                  <Row>
+                    <Col xs={6}>
+                      <Input
+                        type="text"
+                        label={postcodeLabel}
+                        hasFeedback
+                        value={this.state.postcode}
+                        onChange={this.handlePostcodeChange}
+                        groupClassName='group-class'
+                        labelClassName='label-class'
+                        className="form-control" />
+                    </Col>
+                    <Col xs={6}>
+                      <Input
+                        type="text"
+                        label={housenumberLabel}
+                        hasFeedback
+                        value={this.state.housenumber}
+                        onChange={this.handleHousenumberChange}
+                        groupClassName='group-class'
+                        labelClassName='label-class'
+                        className="form-control" />
+                    </Col>
+                  </Row>
+              </Col>
             </Row>
           </Grid>
           <Grid>
-            <MapLayers data={this.state.maplayers} />
+            <MapLayers
+              lat={this.state.lat}
+              lng={this.state.lng}
+              data={maplayers} />
           </Grid>
             <Modal show={this.state.showModal} bsSize="large" onHide={this.close}>
-
               <Modal.Header closeButton>
                 <Modal.Title>Informatie</Modal.Title>
               </Modal.Header>
-              
+
               <Modal.Body>
-                <p dangerouslySetInnerHTML={{__html: this.state.information}} />
+                <p dangerouslySetInnerHTML={{ __html: information }} />
               </Modal.Body>
 
               <Modal.Footer>
                 <Button onClick={this.close}>Sluiten</Button>
               </Modal.Footer>
-
-            </Modal>              
+            </Modal>
         </div>
-    )
+    );
   }
 }
 
+App.propTypes = {
+  data: PropTypes.object,
+};
 
-class MapLayers extends Component {
-
-  constructor(props, context) {
-    super(props, context)
-    this.state = {}
-  }
-
-  render() {
-    const { data } = this.props
-
-    var mapLayerComponents = data.sort((a, b) => {
-      if(a.name < b.name) return -1;
-      if(a.name > b.name) return 1;
-      return 0;
-    });
-
-    var mapLayerComponentSorted = mapLayerComponents.map((mapLayerComponent, i) => {
-      return (
-        <MapLayer
-          key={i}
-          data={mapLayerComponent} />
-      )
-    });
-
-    return (
-      <div id="content">
-        {mapLayerComponentSorted}
-      </div>
-    )
-  }
-}
-
-
-class Map extends Component {
-
-  constructor(props, context) {
-    super(props, context)
-    this.state = {}
-  }
-
-  componentDidMount() {
-    var self = this;
-    L.Icon.Default.imagePath = '//cdn.leafletjs.com/leaflet-0.7.3/images';
-    this.map = self.createMap(ReactDOM.findDOMNode(self));
-    var tileurls = [];
-
-    // if ('serviceWorker' in navigator) {
-    //   for(var layer in this.map._layers) {
-    //     var currentLayer = this.map._layers[layer];
-    //     for(var tile in currentLayer._tiles) {
-    //       var currentTile = currentLayer._tiles[tile];
-    //       tileurls.push(currentTile.src);
-    //     }
-    //   }      
-    //   caches.open('v1::fundamentals').then(function(cache) {
-    //     cache.addAll(tileurls);
-    //   });
-    // }
-  }  
-
-  createMap(element) {
-    var self = this;
-
-    var topo = L.tileLayer('//{s}.tiles.mapbox.com/v3/nelenschuurmans.iaa98k8k/{z}/{x}/{y}.png', {
-      minZoom: 3,
-      maxZoom: 20,
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> vrijwilligers',
-    });
-
-    var dark = L.tileLayer('//{s}.tiles.mapbox.com/v3/nelenschuurmans.l15h8o1l/{z}/{x}/{y}.png', {
-      minZoom: 3,
-      maxZoom: 20,
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> vrijwilligers',
-    });
-
-    var sat = L.tileLayer('//{s}.tiles.mapbox.com/v3/nelenschuurmans.iaa79205/{z}/{x}/{y}.png', {
-      minZoom: 3,
-      maxZoom: 20,
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> vrijwilligers',
-    });
-
-    var _activeBaseLayer = topo;
-    if(this.props.activeBaselayer === 'sat') {
-      _activeBaseLayer = sat;
-    } else if(this.props.activeBaselayer === 'dark') {
-      _activeBaseLayer = dark;
-    }
-
-    let baseMaps = {
-      "Topografisch": topo,
-      "Contrast": dark,
-      "Satelliet": sat,
-    };
-
-    let overlayMaps = {};
-
-    map = L.map(element,{
-      center: [this.props.lat, this.props.lng], // Focus on Amsterdam Centrum
-      zoom: this.props.zoomLevel, 
-      layers: [_activeBaseLayer],
-      minZoom: 13,
-      maxZoom: 20,
-      zoomControl: true,
-    });
-
-    map.setMaxBounds(map.getBounds());
-        
-    var scale = L.control.scale().addTo(map);
-    var layerControls = new L.control.layers(baseMaps, overlayMaps).addTo(map);    
-
-    if(this.props.mapLayers) {
-      this.props.mapLayers.forEach((layer) => {
-        if(layer.type === 'wms') {
-          var l = L.tileLayer.wms(layer.url, {
-            layers: layer.layerName,
-            STYLES: layer.styles,
-            HEIGHT: layer.height,
-            WIDTH: layer.width,
-            ZINDEX: layer.zindex,
-            SRS: layer.srs,
-            format: layer.format,
-            transparent: layer.transparent,
-            attribution: layer.attribution
-          });
-          if(layer.active) l.addTo(map);
-          layerControls.addOverlay(l, layer.name);
-        }
-        if(layer.type === 'tms') {
-          var tl = L.tileLayer(layer.url, {
-            attribution: layer.attribution
-          });
-          if(layer.active) tl.addTo(map);
-          layerControls.addOverlay(tl, layer.name);
-        }
-      });
-    }    
-    
-    return map;
-  }    
-
-  render() {
-    const {data} = this.props
-
-    return (
-      <div className={styles.map} ref='map'></div>
-    )
-  }
-}
-
-
-class Legend extends Component {
-
-  constructor(props, context) {
-    super(props, context)
-    this.state = {}
-  }
-
-  render() {
-    var legends = this.props.data.mapLayers.map(function(layer,i ) {
-      if(layer.legend) {
-        var list = layer.legend.steps.map(function(step, j) {
-          return (
-            <li key={j} className={styles.legendItem}>
-              <svg height="10" width="10">
-                <circle cx="5" cy="5" r="5" stroke="none" fill={step.color} />
-              </svg>&nbsp;
-              {step.label}
-            </li>
-          );
-        });
-        return (
-          <div key={i} className={styles.legendWrapper}>
-            <strong>{layer.name}</strong>
-            <ul className={styles.legend}>
-              {list}
-            </ul>
-          </div>
-        );
-      }
-    });
-
-    var legends = legends.filter(function(legend){ if(legend) return legend;});
-    return (
-      <Panel header={'Legenda'}>
-        {legends.length > 0 ? legends : <p>Geen legenda beschikbaar</p>}
-      </Panel>
-    )
-  }
-}
-
-
-class MapLayer extends Component {
-
-  constructor(props, context) {
-    super(props, context)
-    this.state = {
-      showModal: false
-    }
-    this.close = this.close.bind(this);    
-    this.open = this.open.bind(this);
-  }
-
-
-  close() {
-    this.setState({ showModal: false });
-  }
-
-  open() {
-    var self = this;
-    this.setState({ showModal: true });
-  }
-
-  render() {
-    const {data} = this.props
-
-    var isotopeClasses = styles.repocontainer + ' element ' + data.roles;
-    var repoClasses = 'repo ' + data.key;
-    var rolesText = data.roles.replace(/ /g, ', ').replace('-', ' ');
-    var badges = data.roles.split(' ').map((role, i) => {
-      return <Badge key={i} style={{marginRight:2}}>{role.replace('-', ' ')}</Badge>
-    });
-    var imgUrl = data.coverImage;
-    var divStyle = {
-      backgroundImage: 'url(' + imgUrl + ')',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundColor: 'rgba(246,246,246,0.75)',
-    };
-
-    var bekijkInLizard = (data.lizardUrl) ? <p><a href={data.lizardUrl} target="_blank"><Button>Bekijk in Lizard</Button></a></p> : <div/>;
-
-    return (
-        <div className={isotopeClasses} key={data.key}>
-          <div style={{cursor:'pointer'}}>
-            <div className="repo" onClick={this.open}>
-              <div className="repo-header">
-                <h2 className={styles.title}>
-                  <a className={styles.repolink}>{data.name}</a>
-                </h2>
-                <h3 className={styles.reporoles}>{rolesText}</h3>
-              </div>
-              <div className={styles.picture} style={divStyle}></div>
-            </div>
-
-            <Modal show={this.state.showModal} bsSize="large" onHide={this.close}>
-
-              <Modal.Header closeButton>
-                <Modal.Title>{data.name} {badges}</Modal.Title>
-              </Modal.Header>
-              
-              <Modal.Body>
-                <p dangerouslySetInnerHTML={{__html: data.description}} />
-                {bekijkInLizard}
-                <Row>
-                <Col md={10}>
-                  <Map 
-                    lat={data.lat}
-                    lng={data.lng}
-                    activeBaselayer={data.activeBaselayer}
-                    zoomLevel={data.zoomLevel}
-                    mapLayers={data.mapLayers} />
-                </Col>
-                <Col md={2}>
-                  <Legend data={data} />
-                </Col>
-                </Row>
-              </Modal.Body>
-
-              <Modal.Footer>
-                <Button onClick={this.close}>Sluiten</Button>
-              </Modal.Footer>
-
-            </Modal>                  
-          </div>                
-        </div>
-    )
-
-  }
-}
-
-
-function render() {
-  	ReactDOM.render(
-  		<App />, document.getElementById('root')
+function render(data) {
+  ReactDOM.render(
+    <App data={data} />, document.getElementById('root')
 	);
 }
 
-render();
+fetch('config.json').then(r => r.json())
+  .then(data => render(data))
+  .catch(e => console.log('Loading XHR failed', e));
