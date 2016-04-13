@@ -1,0 +1,17 @@
+.legend {
+  padding: 1px;
+  margin: 1px;
+  list-style: none;
+}
+
+.legendWrapper {
+  margin: 0 0 10px 0;
+}
+
+.legendItem {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width:100px;
+  font-size: 12px;
+}
