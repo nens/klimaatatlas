@@ -64,17 +64,16 @@ class MapLayer extends Component {
     };
 
     const bekijkInLizard = (data.lizardUrl) ?
-      <p><a href={data.lizardUrl} target="_blank"><Button>Bekijk in Lizard</Button></a></p> : <div/>;
+      <p><a href={data.lizardUrl} target="_blank"><Button><i className="fa fa-globe"></i>&nbsp;Bekijk in site</Button></a></p> : <div/>;
 
     return (
         <div className={isotopeClasses} key={data.key}>
           <div style={{ cursor: 'pointer' }}>
             <div className="repo" onClick={this.open}>
-              <div className="repo-header">
+              <div className="repo-header" style={{ marginBottom: 5 }}>
                 <h2 className={styles.title}>
                   <a className={styles.repolink}>{data.name}</a>
                 </h2>
-                <h3 className={styles.reporoles}>{rolesText}</h3>
               </div>
               <div className={styles.picture} style={divStyle}></div>
             </div>
@@ -82,7 +81,7 @@ class MapLayer extends Component {
             <Modal show={this.state.showModal} bsSize="large" onHide={this.close}>
 
               <Modal.Header closeButton>
-                <Modal.Title>{data.name} {badges}</Modal.Title>
+                <Modal.Title>{data.name}</Modal.Title>
               </Modal.Header>
 
               <Modal.Body>

@@ -227,7 +227,7 @@ class App extends Component {
               </Col>
             </Row>
             <Row>
-              <Col xs={12} md={4}>
+              <Col xs={12} md={8}>
                 <p><strong>Thema</strong></p>
                 <p>
                   <Button key={-1}
@@ -240,18 +240,7 @@ class App extends Component {
                   {categoryButtons}
                 </p>
               </Col>
-              <Col xs={12} md={4}>
-                <Input
-                   id="filterinput"
-                   type="text"
-                   placeholder="Typ hier een (deel) van de naam van het thema"
-                   label="Filter"
-                   hasFeedback
-                   groupClassName='group-class'
-                   labelClassName='label-class'
-                   ref="filter"
-                   onChange={this.handleFilter} />
-              </Col>
+              <Col xs={12} md={4} />
               <Col xs={12} md={4}>
                   <Row>
                     <Col xs={6}>

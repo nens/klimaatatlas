@@ -96,6 +96,12 @@ class Map extends Component {
         }
       });
     }
+    // const labels = L.tileLayer('//{s}.tiles.mapbox.com/v3/nelenschuurmans.tm2-basemap/{z}/{x}/{y}.png', {
+    //   minZoom: 3,
+    //   maxZoom: 20,
+    //   zIndex: 999999999999999,
+    //   attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> vrijwilligers',
+    // }).addTo(map).bringToFront();
 
     return map;
   }
